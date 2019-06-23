@@ -1,0 +1,26 @@
+@(categoryForm: Form[CategoryForm], list: Seq[models.Category])(implicit messages:Messages)
+
+@main("カテゴリー登録") {
+
+    @helper.form(action = routes.IndexController.post){
+
+        @helper.inputText(categoryForm("name"), '_label -> "登録内容")
+
+        <button name="action" value="insert" >登録</button>
+
+        @if(!list.isEmpty){
+        <table>
+            @for((category, i) <- list.zipWithIndex){
+            <tr>
+                <td>@(i+1)</td>
+                <td>@category.name</td>
+                <td><button name="action" value="update:@category.id">更新</button></td>
+                <td><button name="action" value="delete:@category.id">削除</button></td>
+            </tr>
+            }
+        </table>
+        }
+
+    }
+
+}
